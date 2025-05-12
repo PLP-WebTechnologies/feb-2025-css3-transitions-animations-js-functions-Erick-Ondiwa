@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Preferences Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f0f0f0;
+      transition: background-color 0.5s;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 16px;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .animate-me {
+      width: 100px;
+      height: 100px;
+      background-color: tomato;
+      margin: 20px auto;
+      border-radius: 50%;
+      animation: none;
+    }
+
+    @keyframes bounce {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-50px); }
+      100% { transform: translateY(0); }
+    }
+
+    .bouncing {
+      animation: bounce 0.6s ease-in-out;
+    }
+
+    .dark {
+      background-color: #1e1e1e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>User Preferences and Animation Demo</h2>
+
+  <button class="btn" id="themeToggle">Toggle Dark Mode</button>
+  <button class="btn" id="animateBtn">Bounce Circle</button>
+
+  <div class="animate-me" id="circle"></div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const circle = document.getElementById('circle');
+    const animateBtn = document.getElementById('animateBtn');
+
+    // Load theme preference from localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+      }
+    });
+
+    // Toggle and store theme
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+      localStorage.setItem('theme', currentTheme);
+    });
+
+    // Trigger bounce animation
+    animateBtn.addEventListener('click', () => {
+      circle.classList.remove('bouncing'); // restart animation
+      void circle.offsetWidth; // reflow to allow restart
+      circle.classList.add('bouncing');
+    });
+  </script>
+
+</body>
+</html>
